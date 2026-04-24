@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1a3a2e">
+<title>狗狗鮮食營養計算器</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>狗狗鮮食營養計算器</h1>
+    <div class="pet-bar">
+      <select id="petSelect"></select>
+      <button id="petEdit" class="btn-sm" title="編輯這隻">✎</button>
+      <button id="petNew" class="btn-sm" title="新增">＋</button>
+      <button id="petDelete" class="btn-sm" title="刪除">🗑</button>
+    </div>
+  </header>
+
+  <!-- Pet stats & energy -->
+  <section class="card">
+    <h2>狗狗資料</h2>
+    <div class="dog-grid">
+      <div class="field">
+        <label for="weight">體重 (kg)</label>
+        <input id="weight" type="number" min="0" step="0.1" inputmode="decimal">
+      </div>
+      <div class="field">
+        <label for="activity">活動係數</label>
+        <select id="activity">
+          <option value="1.2">不活躍 / 減重 (×1.2)</option>
+          <option value="1.4">結紮成犬 (×1.4)</option>
+          <option value="1.6" selected>一般活動 (×1.6)</option>
+          <option value="1.8">活躍 (×1.8)</option>
+          <option value="2.0">高活動 / 工作犬 (×2.0)</option>
+          <option value="3.0">幼犬 &lt;4m (×3.0)</option>
+          <option value="2.0">幼犬 4m-成犬 (×2.0)</option>
+          <option value="1.4">老犬 (×1.4)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="lifeStage">生命階段</label>
+        <select id="lifeStage">
+          <option value="maintenance">成犬維持</option>
+          <option value="growth">幼犬生長 / 懷孕哺乳</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>健康狀況</label>
+        <div id="conditions" class="chk-row"></div>
+      </div>
+    </div>
+    <div class="energy">
+      RER <b id="rer">0</b> kcal &nbsp;|&nbsp; DER <b id="der">0</b> kcal/天
+      <span id="derNote" class="dim"></span>
+    </div>
+  </section>
+
+  <!-- Food picker -->
+  <section class="card picker">
+    <h2>選擇食材</h2>
+    <div class="picker-header">
+      <input id="search" class="search" placeholder="搜尋食材名稱(中英文皆可)…" type="search">
+      <div class="cat-legend" id="catLegend"></div>
+    </div>
+    <div class="ing-grid" id="ingGrid"></div>
+  </section>
+
+  <!-- Current recipe -->
+  <section class="card">
+    <div class="recipe-head">
+      <h2>目前食譜</h2>
+      <div class="recipe-actions">
+        <button id="scaleToDER" class="btn-sm" title="依比例縮放到 DER">⚖ 縮放</button>
+        <button id="clearAll" class="btn-sm">清除</button>
+      </div>
+    </div>
+    <div class="recipe-bar">
+      <select id="recipeSelect"></select>
+      <button id="recipeNew" class="btn-sm" title="新食譜">＋</button>
+      <button id="recipeRename" class="btn-sm" title="重新命名">✎</button>
+      <button id="recipeDelete" class="btn-sm" title="刪除食譜">🗑</button>
+      <button id="recipeShare" class="btn-sm primary" title="分享">📤 分享</button>
+    </div>
+    <div id="recipe" class="recipe-list"></div>
+    <div class="recipe-totals">
+      總重 <b id="totalG">0</b> g &nbsp;|&nbsp; 總熱量 <b id="totalKcal">0</b> kcal
+      <span id="derPct" class="dim"></span>
+    </div>
+  </section>
+
+  <!-- Nutrition summary -->
+  <section class="card" id="summaryCard">
+    <h2>營養摘要</h2>
+    <div id="macroCards" class="macro-cards"></div>
+    <div class="dmb-box" id="dmbBox"></div>
+    <div id="ratioBox" class="ratio-box"></div>
+    <div class="status-counts" id="statusCounts"></div>
+    <div id="gapSuggestions" class="gap-box"></div>
+    <details class="details">
+      <summary>完整營養素(逐項狀態)</summary>
+      <div id="nutrientDetail"></div>
+    </details>
+  </section>
+
+  <footer class="footer">
+    資料:AAFCO 2016 成犬維持標準 / USDA SR Legacy + Foundation Foods (2025-12) / 台灣 TFDA 食品營養成分資料庫<br>
+    <span class="dim">本工具僅供參考,實際鮮食配方請諮詢獸醫或犬貓營養師</span>
+  </footer>
+</div>
+
+<!-- Pet editor modal -->
+<dialog id="petModal">
+  <form method="dialog" id="petForm">
+    <h3 id="petModalTitle">新增寵物</h3>
+    <label>姓名 <input name="name" required></label>
+    <label>體重 (kg) <input name="weight" type="number" min="0" step="0.1" required></label>
+    <label>活動係數
+      <select name="activity">
+        <option value="1.2">不活躍 / 減重 (×1.2)</option>
+        <option value="1.4">結紮成犬 (×1.4)</option>
+        <option value="1.6" selected>一般活動 (×1.6)</option>
+        <option value="1.8">活躍 (×1.8)</option>
+        <option value="2.0">高活動 / 工作犬 (×2.0)</option>
+        <option value="3.0">幼犬 &lt;4m (×3.0)</option>
+        <option value="1.4">老犬 (×1.4)</option>
+      </select>
+    </label>
+    <label>生命階段
+      <select name="lifeStage">
+        <option value="maintenance">成犬維持</option>
+        <option value="growth">幼犬生長 / 懷孕哺乳</option>
+      </select>
+    </label>
+    <fieldset>
+      <legend>健康狀況(可複選)</legend>
+      <label><input type="checkbox" name="conditions" value="kidney"> 腎臟病(低磷)</label>
+      <label><input type="checkbox" name="conditions" value="obesity"> 肥胖(減重)</label>
+      <label><input type="checkbox" name="conditions" value="allergy"> 過敏</label>
+    </fieldset>
+    <div class="modal-btns">
+      <button type="button" id="petCancel">取消</button>
+      <button type="submit" class="primary">儲存</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Share modal -->
+<dialog id="shareModal">
+  <h3>分享食譜</h3>
+  <label>分享連結(對方打開會詢問是否匯入)
+    <div class="share-row">
+      <input id="shareUrl" type="text" readonly>
+      <button type="button" id="copyUrl" class="btn-sm">複製</button>
+    </div>
+  </label>
+  <label>純文字(貼到 LINE / 筆記)
+    <div class="share-row">
+      <textarea id="shareText" readonly rows="10"></textarea>
+    </div>
+    <button type="button" id="copyText" class="btn-sm">複製</button>
+  </label>
+  <div class="modal-btns">
+    <button type="button" id="shareClose">關閉</button>
+  </div>
+</dialog>
+
+<script src="app.js" type="module"></script>
+</body>
+</html>

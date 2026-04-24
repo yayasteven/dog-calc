@@ -1,0 +1,97 @@
+{
+  "note": "AAFCO 2016 dog nutrient profiles. Minimums are per 1000 kcal ME. scale field converts displayed unit to data unit.",
+  "profiles": {
+    "maintenance": {
+      "label": "成犬維持",
+      "nutrients": [
+        {"id":"kcal",    "label":"熱量",       "unit":"kcal", "min":1000, "max":null,  "group":"macro",   "src":"kcal"},
+        {"id":"protein", "label":"蛋白質",     "unit":"g",    "min":45,   "max":null,  "group":"macro",   "src":"protein"},
+        {"id":"fat",     "label":"脂肪",       "unit":"g",    "min":13.8, "max":null,  "group":"macro",   "src":"fat"},
+        {"id":"carb",    "label":"碳水化合物", "unit":"g",    "min":null, "max":null,  "group":"macro",   "src":"carb",   "ref":true},
+        {"id":"fiber",   "label":"膳食纖維",   "unit":"g",    "min":null, "max":null,  "group":"macro",   "src":"fiber",  "ref":true, "note":"AAFCO 無官方建議"},
+        {"id":"omega6",  "label":"Omega-6 (LA)","unit":"g",   "min":2.8,  "max":null,  "group":"fat",     "src":"omega6"},
+        {"id":"omega3",  "label":"Omega-3",    "unit":"g",    "min":0.11, "max":null,  "group":"fat",     "src":"omega3"},
+        {"id":"ca",      "label":"鈣",         "unit":"mg",   "min":1250, "max":6250,  "group":"mineral", "src":"ca"},
+        {"id":"p",       "label":"磷",         "unit":"mg",   "min":1000, "max":4000,  "group":"mineral", "src":"p"},
+        {"id":"k",       "label":"鉀",         "unit":"mg",   "min":1500, "max":null,  "group":"mineral", "src":"k"},
+        {"id":"na",      "label":"鈉",         "unit":"mg",   "min":200,  "max":null,  "group":"mineral", "src":"na"},
+        {"id":"mg",      "label":"鎂",         "unit":"mg",   "min":150,  "max":null,  "group":"mineral", "src":"mg"},
+        {"id":"fe",      "label":"鐵",         "unit":"mg",   "min":10,   "max":null,  "group":"mineral", "src":"fe"},
+        {"id":"zn",      "label":"鋅",         "unit":"mg",   "min":20,   "max":null,  "group":"mineral", "src":"zn"},
+        {"id":"cu",      "label":"銅",         "unit":"mg",   "min":1.83, "max":6.25,  "group":"mineral", "src":"cu"},
+        {"id":"mn",      "label":"錳",         "unit":"mg",   "min":1.25, "max":null,  "group":"mineral", "src":"mn"},
+        {"id":"i",       "label":"碘",         "unit":"mg",   "min":0.25, "max":2.75,  "group":"mineral", "src":"i",   "scale":0.001},
+        {"id":"se",      "label":"硒",         "unit":"μg",   "min":87.5, "max":500,   "group":"mineral", "src":"se"},
+        {"id":"vitA_IU", "label":"維生素 A",   "unit":"IU",   "min":1250, "max":62500, "group":"vitamin", "src":"vitA_IU"},
+        {"id":"vitD_IU", "label":"維生素 D",   "unit":"IU",   "min":125,  "max":750,   "group":"vitamin", "src":"vitD_IU"},
+        {"id":"vitE_mg", "label":"維生素 E",   "unit":"mg",   "min":8.4,  "max":null,  "group":"vitamin", "src":"vitE_mg"},
+        {"id":"b1",      "label":"維生素 B1",  "unit":"mg",   "min":0.56, "max":null,  "group":"vitamin", "src":"b1"},
+        {"id":"b2",      "label":"維生素 B2",  "unit":"mg",   "min":1.3,  "max":null,  "group":"vitamin", "src":"b2"},
+        {"id":"b3",      "label":"維生素 B3",  "unit":"mg",   "min":3.4,  "max":null,  "group":"vitamin", "src":"b3"},
+        {"id":"b5",      "label":"維生素 B5",  "unit":"mg",   "min":3,    "max":null,  "group":"vitamin", "src":"b5"},
+        {"id":"b6",      "label":"維生素 B6",  "unit":"mg",   "min":0.375,"max":null,  "group":"vitamin", "src":"b6"},
+        {"id":"b9",      "label":"維生素 B9",  "unit":"μg",   "min":54,   "max":null,  "group":"vitamin", "src":"b9"},
+        {"id":"b12",     "label":"維生素 B12", "unit":"μg",   "min":7,    "max":null,  "group":"vitamin", "src":"b12"},
+        {"id":"choline", "label":"膽鹼",       "unit":"mg",   "min":340,  "max":null,  "group":"vitamin", "src":"choline"},
+        {"id":"arg",     "label":"精胺酸",     "unit":"g",    "min":1.28, "max":null,  "group":"aa",      "src":"arg"},
+        {"id":"his",     "label":"組胺酸",     "unit":"g",    "min":0.48, "max":null,  "group":"aa",      "src":"his"},
+        {"id":"ile",     "label":"異白胺酸",   "unit":"g",    "min":0.95, "max":null,  "group":"aa",      "src":"ile"},
+        {"id":"leu",     "label":"白胺酸",     "unit":"g",    "min":1.7,  "max":null,  "group":"aa",      "src":"leu"},
+        {"id":"lys",     "label":"離胺酸",     "unit":"g",    "min":1.58, "max":null,  "group":"aa",      "src":"lys"},
+        {"id":"met",     "label":"甲硫胺酸",   "unit":"g",    "min":0.83, "max":null,  "group":"aa",      "src":"met"},
+        {"id":"metcys",  "label":"甲硫胺酸+半胱胺酸", "unit":"g", "min":1.63, "max":null, "group":"aa", "sumOf":["met","cys"]},
+        {"id":"phe",     "label":"苯丙胺酸",   "unit":"g",    "min":1.13, "max":null,  "group":"aa",      "src":"phe"},
+        {"id":"phetyr",  "label":"苯丙胺酸+酪胺酸", "unit":"g", "min":1.85, "max":null, "group":"aa", "sumOf":["phe","tyr"]},
+        {"id":"thr",     "label":"蘇胺酸",     "unit":"g",    "min":1.08, "max":null,  "group":"aa",      "src":"thr"},
+        {"id":"trp",     "label":"色胺酸",     "unit":"g",    "min":0.4,  "max":null,  "group":"aa",      "src":"trp"},
+        {"id":"val",     "label":"纈胺酸",     "unit":"g",    "min":1.23, "max":null,  "group":"aa",      "src":"val"},
+        {"id":"taurine", "label":"牛磺酸",     "unit":"g",    "min":null, "max":null,  "group":"aa",      "src":"taurine", "ref":true, "note":"AAFCO 犬食無建議量"}
+      ]
+    },
+    "growth": {
+      "label": "幼犬生長 / 懷孕哺乳",
+      "_note": "AAFCO 2016 growth/reproduction — 多數營養素比成犬高",
+      "overrides": {
+        "protein": {"min": 56.3},
+        "fat": {"min": 21.3},
+        "ca": {"min": 3000, "max": 6250},
+        "p": {"min": 2500, "max": 4000},
+        "na": {"min": 800},
+        "arg": {"min": 2.5},
+        "his": {"min": 1.1},
+        "ile": {"min": 1.78},
+        "leu": {"min": 3.23},
+        "lys": {"min": 2.25},
+        "met": {"min": 0.88},
+        "metcys": {"min": 1.75},
+        "phe": {"min": 2.08},
+        "phetyr": {"min": 4.08},
+        "thr": {"min": 2.6},
+        "trp": {"min": 0.2},
+        "val": {"min": 1.7}
+      }
+    }
+  },
+  "conditions": {
+    "_note": "Condition overrides modify targets on top of chosen life stage.",
+    "kidney": {
+      "label": "腎臟病(低磷低蛋白)",
+      "overrides": {
+        "p": {"max": 2500, "target_hint": "盡量接近 min"},
+        "protein": {"target_hint": "適量,不追求高蛋白"},
+        "na": {"max": 1000}
+      }
+    },
+    "obesity": {
+      "label": "肥胖(減重)",
+      "der_multiplier": 0.9,
+      "overrides": {
+        "fat": {"target_hint": "降低,建議 <25% DMB"}
+      }
+    },
+    "allergy": {
+      "label": "過敏(蛋白質單一來源)",
+      "note": "建議單一蛋白+單一澱粉配方,避開已知過敏原"
+    }
+  }
+}
