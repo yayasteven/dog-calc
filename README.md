@@ -1,5 +1,7 @@
 # 狗狗鮮食營養計算器
 
+> **線上版:** https://yayasteven.github.io/dog-calc/
+
 基於 AAFCO 2016 成犬維持標準 + USDA FoodData Central (SR Legacy / Foundation Foods) + 台灣 TFDA 食品營養成分資料庫。
 
 ## 功能
